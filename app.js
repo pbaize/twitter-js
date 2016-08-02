@@ -8,6 +8,7 @@ app.engine('html', swig.renderFile);
 
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
+app.use(express.static('public'));
 
 // disables caching
 app.set('view cache', false);
