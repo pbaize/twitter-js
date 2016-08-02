@@ -3,6 +3,8 @@ var app = express(); // creates an instance of an express application
 var chalk = require('chalk');
 var swig = require('swig');
 var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var tweetBank = require('./tweetBank');
 
 app.engine('html', swig.renderFile);
 
@@ -14,18 +16,21 @@ app.use(express.static('public'));
 app.set('view cache', false);
 swig.setDefaults({ cache: false });
 
-var routes = require("./routes");
-app.use('/', routes);
+app.use(function(req, res, next) {
+    console.log(chalk.blue("Server message"));
+    next();
+});
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.post("/tweets", function (req, res) {
+    if (!req.body) return res.sendStatus(400)
+    tweetBank.add(req.body.name, req.body.text);
+    res.redirect("/");
+})
 
 var locals;
-
-var people =[{
-                name: 'Gandalf'
-            }, {
-                name: 'Gollum'
-            }, {
-                name: 'Hermione'
-            }];
 
 app.listen(3000, function() {
     console.log('server listening');
@@ -33,10 +38,12 @@ app.listen(3000, function() {
 
 app.use(morgan('combined'));
 
-app.use(function(req, res, next) {
-    console.log(chalk.blue("Server message"));
-    next();
-});
+var routes = require("./routes");
+app.use('/', routes);
+
+
+
+
 
 
 
