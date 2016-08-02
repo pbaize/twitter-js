@@ -2,6 +2,7 @@ var express = require('express');
 var app = express(); // creates an instance of an express application
 var chalk = require('chalk');
 var swig = require('swig');
+var morgan = require('morgan')
 var locals;
 
 var people =[{
@@ -26,6 +27,8 @@ swig.setDefaults({ cache: false });
 app.listen(3000, function() {
     console.log('server listening');
 });
+
+app.use(morgan('combined'))
 
 app.use(function(req, res, next) {
     console.log(chalk.blue("Server message"));
