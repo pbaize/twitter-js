@@ -5,6 +5,8 @@ var swig = require('swig');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var tweetBank = require('./tweetBank');
+var socketio = require('socket.io');
+
 
 app.engine('html', swig.renderFile);
 
@@ -32,14 +34,14 @@ app.post("/tweets", function (req, res) {
 
 var locals;
 
-app.listen(3000, function() {
-    console.log('server listening');
-});
+var server = app.listen(3000);
+var io = socketio.listen(server);
+
 
 app.use(morgan('combined'));
 
 var routes = require("./routes");
-app.use('/', routes);
+app.use( '/', routes(io) );
 
 
 
