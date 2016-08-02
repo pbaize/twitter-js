@@ -10,7 +10,8 @@ var data = [];
 function add(name, content) {
     data.push({
         name: name,
-        content: content
+        content: content,
+        id: data.length
     });
 }
 
@@ -25,6 +26,8 @@ function find(properties) {
 var randArrayEl = function(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 };
+
+add("trump", "bulid that wall!");
 
 var getFakeName = function() {
     var fakeFirsts = ['Nimit', 'Dave', 'Shanna', 'Charlotte', 'Scott', 'Ayana', 'Omri', 'Gabriel', 'Joe'];

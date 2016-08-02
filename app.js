@@ -31,7 +31,7 @@ app.listen(3000, function() {
     console.log('server listening');
 });
 
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 
 app.use(function(req, res, next) {
     console.log(chalk.blue("Server message"));

@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-
 {% block content %}
   
   <div class="page-header">
@@ -13,13 +12,16 @@
     </div>
     <div class="col-md-9">
       <ul class="list-group">
-      <!-- display tweets here -->
-      {% for tweet in tweets %}
-        <li class="list-group-item"><img src="/images/propic.jpeg" style="max-width: 50px"><h5>{{tweet.name}}</h5>
-        <p>{{tweet.content}}</p></li>
-      {% endfor %}
+        <!-- display tweets here -->
+        {% for tweet in tweets %}
+          <li class="list-group-item">
+            <img src="/images/propic.jpeg" style="max-width: 50px">
+            <a href="/users/{{tweet.name}}">{{tweet.name}}</a> - 
+            {{tweet.content}}  <a href="/tweets/{{tweet.id}}">{{tweet.id}}</a>
+          </li>
+        {% endfor %}
       </ul>
     </div>
   </div>
-    
+  
 {% endblock %}
